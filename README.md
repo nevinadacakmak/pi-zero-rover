@@ -51,11 +51,11 @@ TBD
 
 Identify and source all components.
 
-### Phase 1: Motor control
+### Phase 1: Motor control : WIP
 
-Desc:
+Desc: Get motors working on the Pi.
 
-Deliverable:
+Deliverable: C program that drives on motor, using PWM (Pulse Width Modulation) for speed control
 
 ### Phase 2: Camera streaming
 
@@ -80,3 +80,8 @@ Deliverable:
 Desc:
 
 Deliverable:
+
+## Resources:
+
+- https://www.youtube.com/watch?v=BXBlYpxT4tw
+-
