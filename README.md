@@ -26,10 +26,10 @@ Learning goals: embedded software, Linux, GPIO, autonomous systems, computer vis
 
 ### To Buy
 
-| Component                        | Purpose                                  | Priority |
-| -------------------------------- | ---------------------------------------- | -------- |
-| MicroSD Card (32GB, A1/Class 10) | OS + project storage                     | Phase 1  |
-| 4xAA Batteries                   | Motor power                              | Phase 1  |
+| Component                        | Purpose              | Priority |
+| -------------------------------- | -------------------- | -------- |
+| MicroSD Card (32GB, A1/Class 10) | OS + project storage | Phase 2  |
+| 4xAA Batteries                   | Motor power          | Phase 1  |
 
 ### Power Architecture
 
@@ -62,29 +62,29 @@ Desc: Get motors working on the Pi. Validate GPIO and PWM (Pulse Width Modulatio
 
 Deliverable: C program that drives one TT motor forward, backward, and stop, using PWM for speed control via the L298N driver.
 
-### Phase 2: Camera streaming : WIP
+### Phase 2: Camera streaming
 
 Desc: Get the Camera Module V2 capturing frames and streaming over the local network. Validate the CSI -> libcamera -> encode -> serve pipeline in C.
 
 Deliverable: MJPEG stream viewable in a browser on the same WiFi network.
 
-### Phase 3: Control server
+### Phase 3: Control server : WIP
 
 Desc: Accept movement commands over a TCP socket. Translate commands to motor signals.
 
-Deliverable:
+Deliverable: C server accepting FORWARD / BACK / LEFT / RIGHT / STOP over TCP, driving motors accordingly.
 
 ### Phase 4: Integration
 
 Desc: Combine Phase 2 and Phase 3. Drive the rover while watching the camera feed. Expose both over the internet by self-hosting.
 
-Deliverable:
+Deliverable: Browser-accessible interface showing live camera feed with real-time drive controls.
 
 ### Phase 5: Chassis : WIP
 
 Desc: Design and 3D print the chassis.
 
-Deliverable: A Chassis
+Deliverable: A chassis
 
 ### Phase 6: Wrap up
 
