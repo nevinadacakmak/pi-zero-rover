@@ -8,8 +8,8 @@ using PWM for speed control via the L298N driver.
 */
 
 /*
-my notes: what do i send to l298n?
--> 2 pins. IN1 IN2 ENA.
+-> 3 pins. IN1 IN2 ENA.
+
 IN1	IN2	Result
 HIGH LOW forward
 LOW	HIGH back
@@ -20,8 +20,6 @@ ENA-PWM
 to use: 
 
 libgpiod library
-gpiod_chip_open, gpiod_chip_get_line, gpiod_line_set_value
-need a fcn for pwd
 */
 
 #include <stdio.h>
@@ -29,13 +27,58 @@ need a fcn for pwd
 #include <stdlib.h>
 #include <errno.h>
 #include <math.h>
+#include <gpiod.h>
 
-int main(){
+//pwd function, libgpiod doesnt support pi's pwd pin so its handmade
+void pwm_cycle(double duty_cycle, int period_ms, struct gpiod_line *enaline){
+
+    //HIGH - usleep(period * duty_cycle)
+    //LOW  - usleep(period * (1 - duty_cycle))
+
+    gpiod_line_set_value(enaline, 1);
+    usleep(period_ms * 0.01 * duty_cycle);
+    gpiod_line_set_value(enaline, 0);
+    usleep(period_ms * 0.01 * (1 - duty_cycle))
+
+}
+
+int motors(double duty_cycle, int period_ms, int direction){
+
+    //direction is 1(forward) or 0 (backward) or 2(stop)
+    
+    struct gpiod_chip *chip;
+    struct gpiod_line *in1line;
+    struct gpiod_line *in2line;
+    struct gpiod_line *enaline;
+
+    //open gpio pins "chip"
+    chip=gpiod_chip_open("/dev/gpiochip0");
+
+    //get the pin number
+    in1line=gpiod_chip_get_line(chip, 17);  // which gpio? 17 for in1, 27 for in2, 18 for ena
+    enaline=gpiod_chip_get_line(chip, 18);
+    in2line=gpiod_chip_get_line(chip, 27);
+
+    //configure the value "line"
+    gpiod_line_request_output(in1line, "motor", 0);
+    gpiod_line_request_output(in2line, "motor", 0);
+    gpiod_line_request_output(enaline, "motor", 0);
+
+    //inputs
+    gpiod_line_set_value(in1line, 0);  //high versus low
+    gpiod_line_set_value(in2line, 0); 
+    gpiod_line_set_value(enaline, 0); //ena, need the func for this
+
+    pwd_cycle(duty_cycle, period_ms, enaline);
+
+    //need to figure out where the inputs are coming from
 
 
-
-
-
+    //cleanup
+    gpiod_line_release(in1line);
+    gpiod_line_release(in2line);
+    gpiod_line_release(enaline);
+    gpiod_chip_close(chip);
 
     return 0;
 }
