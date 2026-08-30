@@ -27,6 +27,7 @@ libgpiod library
 #include <stdlib.h>
 #include <errno.h>
 #include <math.h>
+#include <unistd.h>
 #include <gpiod.h>
 
 //pwd function, libgpiod doesnt support pi's pwd pin so its handmade
@@ -36,16 +37,16 @@ void pwm_cycle(double duty_cycle, int period_ms, struct gpiod_line *enaline){
     //LOW  - usleep(period * (1 - duty_cycle))
 
     gpiod_line_set_value(enaline, 1);
-    usleep(period_ms * 0.01 * duty_cycle);
+    usleep(period_ms * 1000 * duty_cycle);
     gpiod_line_set_value(enaline, 0);
-    usleep(period_ms * 0.01 * (1 - duty_cycle))
+    usleep(period_ms * 1000 * (1 - duty_cycle));
 
 }
 
-int motors(double duty_cycle, int period_ms, int direction){
+int motors(double duty_cycle, int period_ms, int direction, int motor_running){
 
     //direction is 1(forward) or 0 (backward) or 2(stop)
-    
+
     struct gpiod_chip *chip;
     struct gpiod_line *in1line;
     struct gpiod_line *in2line;
@@ -65,13 +66,33 @@ int motors(double duty_cycle, int period_ms, int direction){
     gpiod_line_request_output(enaline, "motor", 0);
 
     //inputs
-    gpiod_line_set_value(in1line, 0);  //high versus low
-    gpiod_line_set_value(in2line, 0); 
-    gpiod_line_set_value(enaline, 0); //ena, need the func for this
+    if (direction == 2){
+        gpiod_line_set_value(in1line, 0);  //high versus low
+        gpiod_line_set_value(in2line, 0); 
+        gpiod_line_set_value(enaline, 0); //ena
 
-    pwd_cycle(duty_cycle, period_ms, enaline);
+    }
 
-    //need to figure out where the inputs are coming from
+    if (direction == 1){
+        gpiod_line_set_value(in1line, 1);  //high versus low
+        gpiod_line_set_value(in2line, 0); 
+        //gpiod_line_set_value(enaline, 0); //ena
+        //todo: loop
+        while (1) {
+            pwm_cycle(duty_cycle, period_ms, enaline);
+        }
+
+    }
+
+    if (direction == 0){
+        gpiod_line_set_value(in1line, 0);  //high versus low
+        gpiod_line_set_value(in2line, 1); 
+        //gpiod_line_set_value(enaline, 0); //ena
+        //todo: loop, will use motor_running later, or SIGINT
+        while (1) {
+            pwm_cycle(duty_cycle, period_ms, enaline);
+        }
+    }
 
 
     //cleanup

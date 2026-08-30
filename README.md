@@ -92,6 +92,8 @@ Desc: Mount all validated electronics. Solve untethered Pi power.
 
 Deliverable: A physical rover driving on its own power with no cables.
 
+## Photos
+
 ## Resources:
 
 - https://www.youtube.com/watch?v=BXBlYpxT4tw
