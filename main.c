@@ -11,14 +11,14 @@ int main(int argc, char *argv[]) {
     //where is the input coming from? terminal for now?
     //terminal for now: direction, duty_cycle, period_ms
 
-    if (argc != ) {
-    //error
+    if (argc != 4) {
+    printf("error, please input 3 numbers: direction (0,1), duty, period (in ms)");
     return 1;
     }
 
-    int direction = atoi(argv[]);
-    double duty = atof(argv[]);
-    int period = atoi(argv[]);
+    int direction = atoi(argv[1]);
+    double duty = atof(argv[2]);
+    int period = atoi(argv[3]);
 
     motors(duty, period, direction);
 

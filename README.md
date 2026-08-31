@@ -56,7 +56,7 @@ TBD
 
 Identify and source all components.
 
-### Phase 1: Motor control : WIP
+### Phase 1: Motor control : +
 
 Desc: Get motors working on the Pi. Validate GPIO and PWM (Pulse Width Modulation).
 
