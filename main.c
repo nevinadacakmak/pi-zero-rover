@@ -4,11 +4,12 @@
 #include <errno.h>
 #include <math.h>
 #include "motor.h"
+#include "server.h"
 
 
 int main(int argc, char *argv[]) {
 
-    //where is the input coming from? terminal for now?
+    //where is the input coming from? terminal for now? for phase 1, yes
     //terminal for now: direction, duty_cycle, period_ms
 
     if (argc != 4) {

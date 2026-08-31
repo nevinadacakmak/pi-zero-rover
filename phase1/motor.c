@@ -43,6 +43,8 @@ void pwm_cycle(double duty_cycle, int period_ms, struct gpiod_line *enaline){
 
 }
 
+//divide it into 3: motor_setup, motor_loop, motor_cleanup
+
 int motors(double duty_cycle, int period_ms, int direction, int motor_running){
 
     //direction is 1(forward) or 0 (backward) or 2(stop)
