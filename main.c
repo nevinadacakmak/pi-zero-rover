@@ -21,7 +21,16 @@ int main(int argc, char *argv[]) {
     double duty = atof(argv[2]);
     int period = atoi(argv[3]);
 
-    motors(duty, period, direction);
+    motor_setup();
+
+    pthread_t pwm_thread;
+    pthread_create(&pwm_thread, NULL, motor_loop, NULL);
+    
+    server_start();
+    
+    running = 0;
+    pthread_join(pwm_thread, NULL);
+    motor_cleanup();
 
     return 0;
 }

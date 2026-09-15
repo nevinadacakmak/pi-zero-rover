@@ -21,13 +21,18 @@ shared variable: direction, motor_running
 
 //one fcn for the pwn thread
 
+void pwn_thread(){
+    //TODO
+    
+}
+
 int server(){
 
     //build the socket, listen, update current_direction
 
-    //calls motor: setup
+    //calls motor_setup
 
-
+    //TODO
 
 
 

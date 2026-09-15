@@ -5,6 +5,8 @@
 #include <math.h>
 #include <unistd.h>
 #include <gpiod.h>
+extern int current_direction;
+extern int running;
 
 void pwm_cycle(double duty_cycle, int period_ms, struct gpiod_line *enaline);
 

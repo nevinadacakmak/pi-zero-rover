@@ -29,6 +29,8 @@ libgpiod library
 #include <math.h>
 #include <unistd.h>
 #include <gpiod.h>
+int current_direction = 2;  // başlangıçta dur
+int running = 1;
 
 //pwd function, libgpiod doesnt support pi's pwd pin so its handmade
 void pwm_cycle(double duty_cycle, int period_ms, struct gpiod_line *enaline){
@@ -43,9 +45,7 @@ void pwm_cycle(double duty_cycle, int period_ms, struct gpiod_line *enaline){
 
 }
 
-//divide it into 3: motor_setup, motor_loop, motor_cleanup
-
-int motors(double duty_cycle, int period_ms, int direction, int motor_running){
+int motor_setup(double duty_cycle, int period_ms, int direction, int motor_running){
 
     //direction is 1(forward) or 0 (backward) or 2(stop)
 
@@ -105,3 +105,7 @@ int motors(double duty_cycle, int period_ms, int direction, int motor_running){
 
     return 0;
 }
+
+int motor_loop(){}//TODO
+
+int motor_cleanup(){}//TODO
