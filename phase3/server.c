@@ -19,12 +19,12 @@ shared variable: direction, motor_running
 #include <unistd.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
-//#include "motor.h"
+#include "motor.h"
 
 int current_direction = 2;
 int running = 1;
 
-int main() {
+int server_start() {
     int sockfd = socket(AF_INET, SOCK_STREAM, 0);
     
     struct sockaddr_in addr;
@@ -49,7 +49,14 @@ int main() {
         {
             current_direction = 0;
         }
-        // buf[0] == 'A', 'D' -> nothing yet 
+        if (buf[0] == 'S') 
+        {
+            current_direction = 4;
+        }
+        if (buf[0] == 'S') 
+        {
+            current_direction = 3;
+        }
         printf("received: %c, direction: %d\n", buf[0], current_direction);
     }
 

@@ -12,24 +12,24 @@ Learning goals: embedded software, Linux, GPIO, autonomous systems, computer vis
 
 ### Owned
 
-| Component                       | Details                                                          | Status |
-| ------------------------------- | ---------------------------------------------------------------- | ------ |
-| Raspberry Pi Camera Module V2   | Official, IMX219 sensor, 8MP, 1080p, CSI                         | +      |
-| MakerSpot Zero Camera Cable Set | 1.6" / 3.2" / 5.9" ribbon flex, Zero-compatible 22-pin           | +      |
-| TT Gear Motors x4               | SazkJere, 3-6V DC, 200RPM, 1:48 gearbox, dual shaft, 200mm wired | +      |
-| L298N Motor Driver x3           | Dual H-bridge, handles 2A per channel                            | +      |
-| 4xAA Battery Holder x2          | With leads and wires, motor power supply                         | +      |
-| M3 Screw/Nut Kit                | For chassis mounting                                             | +      |
-| Jumper Wires                    | M-M and M-F                                                      | +      |
-| 3D Printer                      | Chassis fabrication                                              | +      |
-| Raspberry Pi Zero 2 WH          | Main compute board, pre-soldered headers                         | +      |
+| Component                        | Details                                                          | Status |
+| -------------------------------- | ---------------------------------------------------------------- | ------ |
+| Raspberry Pi Camera Module V2    | Official, IMX219 sensor, 8MP, 1080p, CSI                         | +      |
+| MakerSpot Zero Camera Cable Set  | 1.6" / 3.2" / 5.9" ribbon flex, Zero-compatible 22-pin           | +      |
+| TT Gear Motors x4                | SazkJere, 3-6V DC, 200RPM, 1:48 gearbox, dual shaft, 200mm wired | +      |
+| L298N Motor Driver x3            | Dual H-bridge, handles 2A per channel                            | +      |
+| 4xAA Battery Holder x2           | With leads and wires, motor power supply                         | +      |
+| M3 Screw/Nut Kit                 | For chassis mounting                                             | +      |
+| Jumper Wires                     | M-M and M-F                                                      | +      |
+| 3D Printer                       | Chassis fabrication                                              | +      |
+| Raspberry Pi Zero 2 WH           | Main compute board, pre-soldered headers                         | +      |
+| MicroSD Card (32GB, A1/Class 10) | OS + project storage                                             | +      |
 
 ### To Buy
 
-| Component                        | Purpose              | Priority |
-| -------------------------------- | -------------------- | -------- |
-| MicroSD Card (32GB, A1/Class 10) | OS + project storage | Phase 2  |
-| 4xAA Batteries                   | Motor power          | Phase 1  |
+| Component      | Purpose     | Priority |
+| -------------- | ----------- | -------- |
+| 4xAA Batteries | Motor power | Phase 1  |
 
 ### Power Architecture
 
