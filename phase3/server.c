@@ -21,9 +21,6 @@ shared variable: direction, motor_running
 #include <netinet/in.h>
 #include "motor.h"
 
-int current_direction = 2;
-int running = 1;
-
 int server_start() {
     int sockfd = socket(AF_INET, SOCK_STREAM, 0);
     
@@ -49,11 +46,11 @@ int server_start() {
         {
             current_direction = 0;
         }
-        if (buf[0] == 'S') 
+        if (buf[0] == 'A') 
         {
             current_direction = 4;
         }
-        if (buf[0] == 'S') 
+        if (buf[0] == 'D') 
         {
             current_direction = 3;
         }

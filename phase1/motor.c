@@ -44,6 +44,12 @@ struct gpiod_line *enaline;
 struct gpiod_line *in3line;
 struct gpiod_line *in4line;
 struct gpiod_line *enbline;
+struct gpiod_line *in5line;
+struct gpiod_line *in6line;
+struct gpiod_line *encline;
+struct gpiod_line *in7line;
+struct gpiod_line *in8line;
+struct gpiod_line *endline;
 
 //pwd function, libgpiod doesnt support pi's pwd pin so its handmade
 void pwm_cycle(struct gpiod_line *enaline){
@@ -69,8 +75,16 @@ int motor_setup(){
     enaline=gpiod_chip_get_line(chip, 18);
 
     in3line=gpiod_chip_get_line(chip, 22);
-    enbline=gpiod_chip_get_line(chip, 24);
     in4line=gpiod_chip_get_line(chip, 23);
+    enbline=gpiod_chip_get_line(chip, 24);
+
+    in5line=gpiod_chip_get_line(chip, 5);
+    in6line=gpiod_chip_get_line(chip, 6);
+    encline=gpiod_chip_get_line(chip, 13);
+
+    in7line=gpiod_chip_get_line(chip, 19);
+    in8line=gpiod_chip_get_line(chip, 26);
+    endline=gpiod_chip_get_line(chip, 12);
 
     //configure the value "line"
     gpiod_line_request_output(in1line, "motor", 0);
@@ -80,6 +94,14 @@ int motor_setup(){
     gpiod_line_request_output(in3line, "motor", 0);
     gpiod_line_request_output(in4line, "motor", 0);
     gpiod_line_request_output(enbline, "motor", 0);
+
+    gpiod_line_request_output(in5line, "motor", 0);
+    gpiod_line_request_output(in6line, "motor", 0);
+    gpiod_line_request_output(encline, "motor", 0);
+
+    gpiod_line_request_output(in7line, "motor", 0);
+    gpiod_line_request_output(in8line, "motor", 0);
+    gpiod_line_request_output(endline, "motor", 0);
 
     return 0;
 }
@@ -93,9 +115,15 @@ void *motor_loop(void *arg) {
             gpiod_line_set_value(in2line, 1);
             gpiod_line_set_value(in3line, 0);
             gpiod_line_set_value(in4line, 1);
+            gpiod_line_set_value(in5line, 0);
+            gpiod_line_set_value(in6line, 1);
+            gpiod_line_set_value(in7line, 0);
+            gpiod_line_set_value(in8line, 1);
             // call pwm_cycle
             pwm_cycle(enaline);
             pwm_cycle(enbline);
+            pwm_cycle(encline);
+            pwm_cycle(endline);
         }
         else if (current_direction == 1) 
         {
@@ -104,9 +132,15 @@ void *motor_loop(void *arg) {
             gpiod_line_set_value(in2line, 0);
             gpiod_line_set_value(in3line, 1);
             gpiod_line_set_value(in4line, 0);
+            gpiod_line_set_value(in5line, 1);
+            gpiod_line_set_value(in6line, 0);
+            gpiod_line_set_value(in7line, 1);
+            gpiod_line_set_value(in8line, 0);
             // call pwm_cycle
             pwm_cycle(enaline);
             pwm_cycle(enbline);
+            pwm_cycle(encline);
+            pwm_cycle(endline);
         }
         else if (current_direction == 2) 
         {
@@ -115,8 +149,14 @@ void *motor_loop(void *arg) {
             gpiod_line_set_value(in2line, 0);
             gpiod_line_set_value(in3line, 0);
             gpiod_line_set_value(in4line, 0);
+            gpiod_line_set_value(in5line, 0);
+            gpiod_line_set_value(in6line, 0);
+            gpiod_line_set_value(in7line, 0);
+            gpiod_line_set_value(in8line, 0);
             gpiod_line_set_value(enaline, 0);
             gpiod_line_set_value(enbline, 0);
+            gpiod_line_set_value(encline, 0);
+            gpiod_line_set_value(endline, 0);
         } 
         else if (current_direction == 3) 
         {
@@ -125,9 +165,15 @@ void *motor_loop(void *arg) {
             gpiod_line_set_value(in2line, 0);
             gpiod_line_set_value(in3line, 0);
             gpiod_line_set_value(in4line, 1);
+            gpiod_line_set_value(in5line, 1);
+            gpiod_line_set_value(in6line, 0);
+            gpiod_line_set_value(in7line, 0);
+            gpiod_line_set_value(in8line, 1);
             // call pwm_cycle
             pwm_cycle(enaline);
             pwm_cycle(enbline);
+            pwm_cycle(encline);
+            pwm_cycle(endline);
         } 
         else if (current_direction == 4) 
         {
@@ -136,9 +182,15 @@ void *motor_loop(void *arg) {
             gpiod_line_set_value(in2line, 1);
             gpiod_line_set_value(in3line, 1);
             gpiod_line_set_value(in4line, 0);
+            gpiod_line_set_value(in5line, 0);
+            gpiod_line_set_value(in6line, 1);
+            gpiod_line_set_value(in7line, 1);
+            gpiod_line_set_value(in8line, 0);
             // call pwm_cycle
             pwm_cycle(enaline);
             pwm_cycle(enbline);
+            pwm_cycle(encline);
+            pwm_cycle(endline);
         } 
     }
     return NULL;
@@ -152,5 +204,11 @@ void motor_cleanup(){
     gpiod_line_release(in3line);
     gpiod_line_release(in4line);
     gpiod_line_release(enbline);
+    gpiod_line_release(in5line);
+    gpiod_line_release(in6line);
+    gpiod_line_release(encline);
+    gpiod_line_release(in7line);
+    gpiod_line_release(in8line);
+    gpiod_line_release(endline);
     gpiod_chip_close(chip);
 }
