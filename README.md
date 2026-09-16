@@ -68,7 +68,7 @@ Desc: Get the Camera Module V2 capturing frames and streaming over the local net
 
 Deliverable: MJPEG stream viewable in a browser on the same WiFi network.
 
-### Phase 3: Control server : WIP
+### Phase 3: Control server : +
 
 Desc: Accept movement commands over a TCP socket. Translate commands to motor signals.
 
