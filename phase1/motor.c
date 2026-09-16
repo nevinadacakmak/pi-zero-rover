@@ -80,23 +80,23 @@ void *motor_loop(void *arg) {
         if (current_direction == 2) 
         {
             // stop: in1=0, in2=0, ena=0
-            gpiod_line_set_value(in1line, "motor", 0);
-            gpiod_line_set_value(in2line, "motor", 0);
-            gpiod_line_set_value(enaline, "motor", 0);
+            gpiod_line_set_value(in1line, 0);
+            gpiod_line_set_value(in2line, 0);
+            gpiod_line_set_value(enaline, 0);
         } 
         else if (current_direction == 1) 
         {
             // forward: in1=1, in2=0
-            gpiod_line_set_value(in1line, "motor", 1);
-            gpiod_line_set_value(in2line, "motor", 0);
+            gpiod_line_set_value(in1line, 1);
+            gpiod_line_set_value(in2line, 0);
             // call pwm_cycle
             pwm_cycle(enaline);
         } 
         else if (current_direction == 0) 
         {
             // backward: in1=0, in2=1
-            gpiod_line_set_value(in1line, "motor", 0);
-            gpiod_line_set_value(in2line, "motor", 1);
+            gpiod_line_set_value(in1line, 0);
+            gpiod_line_set_value(in2line, 1);
             // call pwm_cycle
             pwm_cycle(enaline);
         }

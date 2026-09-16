@@ -17,7 +17,7 @@ int main(int argc, char *argv[]) {
     return 1;
     }
 
-    int direction = atoi(argv[1]);
+    current_direction = atoi(argv[1]);
     duty_cycle = atof(argv[2]); //global
     period_ms = atoi(argv[3]); //global
 
