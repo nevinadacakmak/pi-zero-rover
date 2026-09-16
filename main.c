@@ -18,8 +18,8 @@ int main(int argc, char *argv[]) {
     }
 
     int direction = atoi(argv[1]);
-    double duty = atof(argv[2]);
-    int period = atoi(argv[3]);
+    duty_cycle = atof(argv[2]); //global
+    period_ms = atoi(argv[3]); //global
 
     motor_setup();
 

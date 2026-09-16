@@ -19,14 +19,7 @@ shared variable: direction, motor_running
 #include <math.h>
 #include <unistd.h>
 
-//one fcn for the pwn thread
-
-void pwn_thread(){
-    //TODO
-    
-}
-
-int server(){
+int server_start(){
 
     //build the socket, listen, update current_direction
 

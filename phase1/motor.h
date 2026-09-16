@@ -5,9 +5,14 @@
 #include <math.h>
 #include <unistd.h>
 #include <gpiod.h>
+#include <pthread.h>
 extern int current_direction;
 extern int running;
+extern double duty_cycle;
+extern int period_ms;
 
-void pwm_cycle(double duty_cycle, int period_ms, struct gpiod_line *enaline);
+void pwm_cycle(struct gpiod_line *enaline);
 
-int motors(double duty_cycle, int period_ms, int direction, int motor_running);
+int motor_setup();
+void *motor_loop(void *arg); //
+void motor_cleanup();

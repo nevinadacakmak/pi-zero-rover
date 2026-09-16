@@ -29,11 +29,21 @@ libgpiod library
 #include <math.h>
 #include <unistd.h>
 #include <gpiod.h>
-int current_direction = 2;  // başlangıçta dur
+#include <pthread.h>
+
+//default
+int current_direction = 2;
 int running = 1;
+double duty_cycle = 0.75;
+int period_ms = 10;
+
+struct gpiod_chip *chip;
+struct gpiod_line *in1line;
+struct gpiod_line *in2line;
+struct gpiod_line *enaline;
 
 //pwd function, libgpiod doesnt support pi's pwd pin so its handmade
-void pwm_cycle(double duty_cycle, int period_ms, struct gpiod_line *enaline){
+void pwm_cycle(struct gpiod_line *enaline){
 
     //HIGH - usleep(period * duty_cycle)
     //LOW  - usleep(period * (1 - duty_cycle))
@@ -45,14 +55,9 @@ void pwm_cycle(double duty_cycle, int period_ms, struct gpiod_line *enaline){
 
 }
 
-int motor_setup(double duty_cycle, int period_ms, int direction, int motor_running){
+int motor_setup(){
 
     //direction is 1(forward) or 0 (backward) or 2(stop)
-
-    struct gpiod_chip *chip;
-    struct gpiod_line *in1line;
-    struct gpiod_line *in2line;
-    struct gpiod_line *enaline;
 
     //open gpio pins "chip"
     chip=gpiod_chip_open("/dev/gpiochip0");
@@ -67,45 +72,42 @@ int motor_setup(double duty_cycle, int period_ms, int direction, int motor_runni
     gpiod_line_request_output(in2line, "motor", 0);
     gpiod_line_request_output(enaline, "motor", 0);
 
-    //inputs
-    if (direction == 2){
-        gpiod_line_set_value(in1line, 0);  //high versus low
-        gpiod_line_set_value(in2line, 0); 
-        gpiod_line_set_value(enaline, 0); //ena
+    return 0;
+}
 
-    }
-
-    if (direction == 1){
-        gpiod_line_set_value(in1line, 1);  //high versus low
-        gpiod_line_set_value(in2line, 0); 
-        //gpiod_line_set_value(enaline, 0); //ena
-        //todo: loop
-        while (1) {
-            pwm_cycle(duty_cycle, period_ms, enaline);
+void *motor_loop(void *arg) {
+    while (running) {
+        if (current_direction == 2) 
+        {
+            // stop: in1=0, in2=0, ena=0
+            gpiod_line_set_value(in1line, "motor", 0);
+            gpiod_line_set_value(in2line, "motor", 0);
+            gpiod_line_set_value(enaline, "motor", 0);
+        } 
+        else if (current_direction == 1) 
+        {
+            // forward: in1=1, in2=0
+            gpiod_line_set_value(in1line, "motor", 1);
+            gpiod_line_set_value(in2line, "motor", 0);
+            // call pwm_cycle
+            pwm_cycle(enaline);
+        } 
+        else if (current_direction == 0) 
+        {
+            // backward: in1=0, in2=1
+            gpiod_line_set_value(in1line, "motor", 0);
+            gpiod_line_set_value(in2line, "motor", 1);
+            // call pwm_cycle
+            pwm_cycle(enaline);
         }
-
     }
+    return NULL;
+}
 
-    if (direction == 0){
-        gpiod_line_set_value(in1line, 0);  //high versus low
-        gpiod_line_set_value(in2line, 1); 
-        //gpiod_line_set_value(enaline, 0); //ena
-        //todo: loop, will use motor_running later, or SIGINT
-        while (1) {
-            pwm_cycle(duty_cycle, period_ms, enaline);
-        }
-    }
-
-
+void motor_cleanup(){
     //cleanup
     gpiod_line_release(in1line);
     gpiod_line_release(in2line);
     gpiod_line_release(enaline);
     gpiod_chip_close(chip);
-
-    return 0;
 }
-
-int motor_loop(){}//TODO
-
-int motor_cleanup(){}//TODO

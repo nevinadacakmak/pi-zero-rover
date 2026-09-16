@@ -5,4 +5,4 @@
 #include <math.h>
 #include <unistd.h>
 
-int server();
+int server_start();
