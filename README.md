@@ -80,7 +80,7 @@ Desc: Combine Phase 2 and Phase 3. Drive the rover while watching the camera fee
 
 Deliverable: Browser-accessible interface showing live camera feed with real-time drive controls.
 
-### Phase 5: Chassis : WIP
+### Phase 5: Chassis : +
 
 Desc: Design and 3D print the chassis.
 
